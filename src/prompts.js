@@ -1,19 +1,24 @@
 // ==========================================================
-// NOAH Content Radar v2.0 · Prompt 模板库
-// 9 个平台 Prompt + 通用 Prompt + DAILY_CRAWL_PROMPT
+// NOAH Content Radar v2.1 · Prompt 模板库
+// 9 个平台 Prompt（官网/小红书/视频号/Facebook/LinkedIn/Medium/
+// YouTube/Reddit/Quora）+ 通用 Prompt + DAILY_CRAWL_PROMPT
+// + 独立的X（CIO日报专属通道，不接入9平台选题生成器）
 // 所有"复制到 Claude"的 prompt 在这里统一管理
 // ==========================================================
 
 const PLATFORM_NAMES = [
-  'wechat', 'xiaohongshu', 'videoChannel', 'x',
-  'linkedin', 'zhihu', 'youtube', 'reddit', 'quora',
+  'website', 'xiaohongshu', 'videoChannel', 'facebook',
+  'linkedin', 'medium', 'youtube', 'reddit', 'quora',
 ];
 
 const PLATFORM_LABELS = {
-  wechat: '微信公众号', xiaohongshu: '小红书', videoChannel: '视频号',
-  x: 'X（Twitter）', linkedin: 'LinkedIn', zhihu: '知乎',
+  website: '官网', xiaohongshu: '小红书', videoChannel: '视频号',
+  facebook: 'Facebook', linkedin: 'LinkedIn', medium: 'Medium',
   youtube: 'YouTube', reddit: 'Reddit', quora: 'Quora',
 };
+
+// X（Twitter）不在9平台选题生成器中，是CIO办公室日报的专属输出通道，
+// 见文件末尾 buildPromptXCIO，由Doris独立判断是否发布。
 
 // ==========================================================
 // 共用 Prompt 头（注入到每个平台 Prompt 中）
@@ -36,16 +41,17 @@ function buildPromptHeader(topic) {
 }
 
 // ==========================================================
-// ① 微信公众号
+// ① 官网（原微信公众号位，诺亚无公众号故替换）
+// 目标：认知 / AI可见性——深度专业内容，讲逻辑有数据
 // ==========================================================
-export function buildPromptWeChat(topic) {
+export function buildPromptWebsite(topic) {
   return `${buildPromptHeader(topic)}
-请为微信公众号撰写一篇 1500-2000 字的深度长文。
-- 风格：讲逻辑、有数据、能给出判断框架
+请为诺亚官网"洞察"栏目撰写一篇 1500-2000 字的深度长文。
+- 风格：讲逻辑、有数据、能给出判断框架，服务"认知/AI可见性"目标
 - 标题要求：3 个备选标题，吸引点击但不标题党
 - 结构：开篇钩子（与读者切身相关）→ 现象拆解 → 诺亚视角 → 行动建议
-- 必须包含：至少 1 个数据图建议、2 处客户案例化表达
-- 结尾留扫码引导关注 ARK / Olive / Glory 的转化口`;
+- 必须包含：至少 1 个数据图建议、2 处客户案例化表达、可被AI抓取索引的结构化小标题
+- 结尾自然带出ARK / Olive / Glory相关服务入口，或FAQ / How Noah Works相关链接`;
 }
 
 // ==========================================================
@@ -75,16 +81,17 @@ export function buildPromptVideoChannel(topic) {
 }
 
 // ==========================================================
-// ④ X（Twitter）
+// ④ Facebook（原X位，定位已修正）
+// 目标：客户转化——软性、生活化、偏营销转化导向
 // ==========================================================
-export function buildPromptX(topic) {
+export function buildPromptFacebook(topic) {
   return `${buildPromptHeader(topic)}
-请生成 3 条 X 推文（中英各 1 + 长帖 thread 1）。
-- 风格：讲结论、犀利、可被引用
-- 单条推文：280 字符内，开头就给判断
-- 长帖 thread：5-7 条，每条独立成立但形成递进
-- 必须包含：能被截图传播的金句、配合诺亚 CIO 报告观点
-- 适合时机：附上"什么时间发效果最好"的建议（按北京时间）`;
+请生成 1 篇 Facebook 帖子（中英各 1 版），风格软性、生活化，服务"客户转化"目标，而非专业深度。
+- 风格：轻松、有共鸣、可以借大众话题（生活方式/热播剧/社会新闻等）切入财富管理角度，不要求专业深度
+- 长度：150-250 字，配图/短视频建议 1 条
+- 结构：一个大众关心的话题或场景 → 自然带出 1-2 条财富管理角度的启示 → 行动引导
+- 必须包含：结尾自然带出诺亚官网链接或落地页，引导感兴趣的读者通过官网WhatsApp咨询入口联系
+- 严禁：生硬的产品推销语气，全文应像"一个懂财富管理的朋友在分享观察"`;
 }
 
 // ==========================================================
@@ -102,15 +109,17 @@ export function buildPromptLinkedIn(topic) {
 }
 
 // ==========================================================
-// ⑥ 知乎
+// ⑥ Medium（原知乎位，无知乎受众故替换为国际专业长文平台）
+// 目标：认知 / AI可见性
 // ==========================================================
-export function buildPromptZhihu(topic) {
+export function buildPromptMedium(topic) {
   return `${buildPromptHeader(topic)}
-请生成一篇知乎专业长文（2000-3000 字）或一组知乎回答（针对 3 个相关问题）。
-- 风格：深度、有数据有结构、像研报但更可读
-- 必须包含：清晰的小标题分段、至少 1 个图表说明文字、引用权威来源
-- 知乎回答版本：找出 3 个最相关的真实知乎问题方向，每个回答 800-1500 字
-- 结尾：自然引入诺亚资源（CIO 报告 / 财富罗盘直播），不硬广`;
+请生成一篇 Medium 英文专业长文（1500-2500 词）。
+- 风格：深度、有数据有结构，像研报但更可读，面向国际专业读者
+- 必须包含：清晰的小标题分段、至少 1 个图表说明文字、引用权威来源（Bloomberg/FT/Reuters等）
+- 结构：现象引入 → 数据拆解 → 诺亚视角与方法论 → 结论与启示
+- 结尾：自然引入诺亚资源（CIO 报告 / How Noah Works），不硬广
+- 目的：建立"这个领域诺亚有资格讲话"的第三方可见语料，兼顾AI抓取索引`;
 }
 
 // ==========================================================
@@ -211,9 +220,10 @@ export function buildNewsToTopicPrompt(news) {
 
 1. **选题标题**（口播体，可直接用）
 2. **切入角度**（与其他两个的差异化）
-3. **最适合的平台**（从以下选择：微信/小红书/视频号/X/LinkedIn/知乎/YouTube/Reddit/Quora）
-4. **建议形式**（短文 / 长文 / 视频 / 图文）
-5. **Hook 一句话**（开头前 5 秒要说什么）
+3. **最适合的平台**（从以下选择：官网/小红书/视频号/Facebook/LinkedIn/Medium/YouTube/Reddit/Quora）
+4. **内容目标**（认知/AI可见性 或 客户转化——转化类可以更热点、更生活化，不强求专业深度）
+5. **建议形式**（短文 / 长文 / 视频 / 图文）
+6. **Hook 一句话**（开头前 5 秒要说什么）
 
 三个选题之间要明显区分：一个主打专业深度、一个主打破圈传播、一个主打人文温度。
 
@@ -238,7 +248,7 @@ export function buildCalendarAnglesPrompt(event) {
 展开 3-5 个差异化切入角度，每个角度包含：
 
 1. **角度名**（一句话概括）
-2. **建议平台**（微信/小红书/视频号/X/LinkedIn/知乎/YouTube/Reddit/Quora）
+2. **建议平台**（官网/小红书/视频号/Facebook/LinkedIn/Medium/YouTube/Reddit/Quora）
 3. **建议形式**
 4. **完整选题标题**
 5. **Hook 建议**（开头怎么说）
@@ -286,7 +296,7 @@ export const DAILY_CRAWL_PROMPT = `你是诺亚控股（Noah Holdings）品牌�
    严禁收录：诺亚自办活动、营销节点、品牌日历
    每条字段：date / event / importance(1-3) / category / brief
 
-4. topics：3-5 条全平台选题（核心，按日报 Prompt v2.0 输出格式）
+4. topics：3-5 条全平台选题（核心，按日报 Prompt v2.1 输出格式）
    每条字段：
    - id（短字符串）
    - title（15 字内）
@@ -294,11 +304,16 @@ export const DAILY_CRAWL_PROMPT = `你是诺亚控股（Noah Holdings）品牌�
    - background（2 句话背景）
    - noahAngle（诺亚角度，必须有立场）
    - priority（"red" / "yellow" / "green"）
+   - contentGoal（"cognition" 认知/AI可见性 / "conversion" 客户转化）
+     认知类：需命中诺亚产品线或CIO观点，专业度要求高；
+     转化类：可以是热点/生活化话题包一层财富启示，不强求专业深度，
+             但需能自然导向官网链接/落地页的WhatsApp咨询入口
    - quote_zh（中文金句）
    - quote_en（英文金句）
-   - platformHints: { wechat, xiaohongshu, videoChannel, x, linkedin,
-                      zhihu, youtube, reddit, quora }
-     （每个平台 1-2 句创作方向提示，会显示在卡片"平台思路"折叠区）
+   - platformHints: { website, xiaohongshu, videoChannel, facebook, linkedin,
+                      medium, youtube, reddit, quora }
+     （每个平台 1-2 句创作方向提示，会显示在卡片"平台思路"折叠区；
+      facebook的提示应体现软性/转化导向，与其余认知类平台的提示风格明显不同）
 
 5. summary：当日总结
    - firstChoicePlatform（首发推荐平台 + 一句话原因）
@@ -311,3 +326,27 @@ export const DAILY_CRAWL_PROMPT = `你是诺亚控股（Noah Holdings）品牌�
 - 中文为主，英文金句和 LinkedIn 提示用英文
 - 必须能直接被 JSON.parse() 解析
 - 数据真实，不编造来源和事件`;
+
+// ==========================================================
+// X（Twitter）· CIO日报专属通道
+// 不接入选题卡9平台按钮，独立于选题生成器之外。
+// 内容来源是CIO办公室日报本身，是否发布由Doris自行判断。
+// ==========================================================
+export function buildPromptXCIO(cioDaily) {
+  return `【背景注入】
+你是诺亚控股（Noah Holdings）品牌部内容创作者，负责X（Twitter）账号，
+该账号只发布CIO办公室相关内容，不承接选题雷达的日常选题。
+
+【CIO日报信息】
+- 日期：${cioDaily.date}
+- 核心观点：${cioDaily.keyView}
+- 支撑数据：${cioDaily.dataPoints}
+
+【平台定制指令】
+请生成 3 条 X 推文（中英各 1 + 长帖 thread 1）。
+- 风格：讲结论、犀利、可被引用
+- 单条推文：280 字符内，开头就给判断
+- 长帖 thread：5-7 条，每条独立成立但形成递进
+- 必须包含：能被截图传播的金句、紧扣CIO日报原始观点，不外延到日报之外的话题
+- 适合时机：附上"什么时间发效果最好"的建议（按北京时间）`;
+}
