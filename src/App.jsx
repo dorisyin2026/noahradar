@@ -8,25 +8,28 @@ import {
   buildBriefingPackagePrompt,
   buildNewsToTopicPrompt,
   buildCalendarAnglesPrompt,
-  buildPromptWeChat,
+  buildPromptWebsite,
   buildPromptXiaohongshu,
   buildPromptVideoChannel,
-  buildPromptX,
+  buildPromptFacebook,
   buildPromptLinkedIn,
-  buildPromptZhihu,
+  buildPromptMedium,
   buildPromptYouTube,
   buildPromptReddit,
   buildPromptQuora,
   DAILY_CRAWL_PROMPT,
 } from './prompts.js';
 
+// X（Twitter）不在此列表中：它是CIO办公室日报的专属输出通道，
+// 使用 prompts.js 中独立的 buildPromptXCIO，由Doris自行判断是否发布，
+// 不接入选题卡的9平台按钮流程。
 const PLATFORM_CONFIG = [
-  { id: 'wechat',        label: '微信公众号',  color: '#8B6F2A', builder: buildPromptWeChat },
+  { id: 'website',       label: '官网',        color: '#8B6F2A', builder: buildPromptWebsite },
   { id: 'xiaohongshu',   label: '小红书',      color: '#8B6F2A', builder: buildPromptXiaohongshu },
   { id: 'videoChannel',  label: '视频号',      color: '#8B6F2A', builder: buildPromptVideoChannel },
-  { id: 'x',             label: 'X（Twitter）',color: '#8B6F2A', builder: buildPromptX },
+  { id: 'facebook',      label: 'Facebook',    color: '#8B6F2A', builder: buildPromptFacebook },
   { id: 'linkedin',      label: 'LinkedIn',    color: '#8B6F2A', builder: buildPromptLinkedIn },
-  { id: 'zhihu',         label: '知乎',        color: '#7A5D20', builder: buildPromptZhihu },
+  { id: 'medium',        label: 'Medium',      color: '#7A5D20', builder: buildPromptMedium },
   { id: 'youtube',       label: 'YouTube',     color: '#7A5D20', builder: buildPromptYouTube },
   { id: 'reddit',        label: 'Reddit',      color: '#7A5D20', builder: buildPromptReddit },
   { id: 'quora',         label: 'Quora',       color: '#7A5D20', builder: buildPromptQuora },
