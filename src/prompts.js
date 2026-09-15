@@ -1,352 +1,254 @@
-// ==========================================================
-// NOAH Content Radar v2.1 · Prompt 模板库
-// 9 个平台 Prompt（官网/小红书/视频号/Facebook/LinkedIn/Medium/
-// YouTube/Reddit/Quora）+ 通用 Prompt + DAILY_CRAWL_PROMPT
-// + 独立的X（CIO日报专属通道，不接入9平台选题生成器）
-// 所有"复制到 Claude"的 prompt 在这里统一管理
-// ==========================================================
-
-const PLATFORM_NAMES = [
-  'website', 'xiaohongshu', 'videoChannel', 'facebook',
-  'linkedin', 'medium', 'youtube', 'reddit', 'quora',
-];
-
-const PLATFORM_LABELS = {
-  website: '官网', xiaohongshu: '小红书', videoChannel: '视频号',
-  facebook: 'Facebook', linkedin: 'LinkedIn', medium: 'Medium',
-  youtube: 'YouTube', reddit: 'Reddit', quora: 'Quora',
-};
-
-// X（Twitter）不在9平台选题生成器中，是CIO办公室日报的专属输出通道，
-// 见文件末尾 buildPromptXCIO，由Doris独立判断是否发布。
-
-// ==========================================================
-// 共用 Prompt 头（注入到每个平台 Prompt 中）
-// ==========================================================
-function buildPromptHeader(topic) {
-  return `【背景注入】
-你是诺亚控股（Noah Holdings）品牌部内容创作者。
-诺亚是 NYSE+HKEX 双重上市的 AI 原生独立财富管理机构，
-总部新加坡，累计配置规模 USD 153B+。
-品牌矩阵：Noah Holdings / ARK / Olive / Glory。
-
-【话题注入】
-今日话题：${topic.title}
-热度来源：${topic.source}
-背景：${topic.background}
-诺亚角度：${topic.noahAngle}
-核心金句：${topic.quote_zh} / ${topic.quote_en}
-
-【平台定制指令】`;
+```json
+{
+  "date": "2026-09-16",
+  "dailyBriefing": [
+    {
+      "title": "美联储今日利率决议，加息山雨欲来",
+      "oneLineNoahAngle": "无论加息与否，本次决议标志着降息周期彻底转向，诺亚CIO团队的观点是：全球资产配置的锚点变了，客户需要重新审视美元资产久期与非美货币敞口的平衡。",
+      "score": 5,
+      "suitablePlatforms": ["linkedin", "website", "medium"]
+    },
+    {
+      "title": "黄金过山车：从5500到4000再反弹",
+      "oneLineNoahAngle": "黄金今年经历罕见的暴涨暴跌暴涨，普通投资者最容易在情绪顶点追涨——诺亚一贯把黄金定位为资产配置中的'压舱石'而非博弈筹码，这正是向客户重申长期配置逻辑的时机。",
+      "score": 5,
+      "suitablePlatforms": ["xiaohongshu", "facebook", "website"]
+    },
+    {
+      "title": "中国家办从新加坡回流香港",
+      "oneLineNoahAngle": "新加坡合规审查趋严、开户周期拉长，叠加香港IPO市场空前活跃，越来越多华人家族办公室把重心迁回香港——这正是诺亚Olive家办业务立足两地枢纽的现实案例。",
+      "score": 4,
+      "suitablePlatforms": ["linkedin", "website", "facebook"]
+    }
+  ],
+  "news": {
+    "macro": [
+      {
+        "title": "美联储9月议息会议今日揭晓结果",
+        "source": "Kiplinger / ATFX / TIO Markets",
+        "time": "2026-09-16",
+        "summary": "美联储9月15-16日两天议息会议将于今日下午2点（美东时间）公布结果，CME FedWatch数据显示市场对加息25个基点的隐含概率一度升至85%-90%，若落地将是2023年以来首次加息，同时公布最新点阵图。",
+        "link": "https://tiomarkets.com/article/fed-rate-decision-september-2026-preview"
+      },
+      {
+        "title": "英国央行紧随美联储次日公布决议",
+        "source": "Cambridge Currencies",
+        "time": "2026-09-17",
+        "summary": "英国央行将于美联储决议公布后不到24小时公布自己的利率决定，两大央行决议接连落地，英镑、欧元对美元汇率短期波动预计放大，跨境资产配置的客户需关注换汇窗口。"
+      },
+      {
+        "title": "美联储公布年内剩余议息日程",
+        "source": "Federal Reserve",
+        "time": "2026-09-16",
+        "summary": "美联储年内还有两次议息会议，分别为10月27-28日及12月8-9日，均为无经济预测摘要的常规会议，市场将持续关注通胀与就业数据对后续决议路径的影响。"
+      },
+      {
+        "title": "IMF与世界银行年会将在曼谷召开",
+        "source": "PECC / Thailand.go.th",
+        "time": "2026-10-12",
+        "summary": "国际货币基金组织与世界银行集团2026年年会将于10月12日至18日在泰国曼谷召开，全球财金官员将聚首讨论增长、债务与金融稳定议题，是下半年最重要的全球宏观对话平台之一。"
+      }
+    ],
+    "market": [
+      {
+        "title": "港股IPO今年集资额突破3600亿港元",
+        "source": "中证网",
+        "time": "2026-09-12",
+        "summary": "今年以来港股IPO市场火热，含超额配售募资总额已超3600亿港元，位居全球交易所前列，108只新股上市首日平均涨幅达53.86%，胜宏科技、立讯精密等A股龙头相继登陆港交所。",
+        "link": "https://stock.10jqka.com.cn/20260912/c679849270.shtml"
+      },
+      {
+        "title": "黄金年内经历史诗级过山车行情",
+        "source": "世界黄金协会 / 中国基金报",
+        "time": "2026-09-11",
+        "summary": "金价1月一度冲高至每盎司5500美元历史高位，6月又跌破4000美元关口，8月全球黄金ETF单月流入180亿美元、创历史第二高，年内净流入已达290亿美元，市场情绪剧烈摆动。"
+      },
+      {
+        "title": "普华永道上调港股全年IPO集资预测",
+        "source": "普华永道",
+        "time": "2026-07-02",
+        "summary": "普华永道预计香港今年IPO集资额有望达到3800亿港元，主要受内地龙头企业赴港上市、科技企业双重上市及国际资金对AI、半导体等新经济板块的浓厚兴趣三大因素驱动。"
+      },
+      {
+        "title": "利率决议前市场情绪高度紧绷",
+        "source": "Advisor Perspectives",
+        "time": "2026-09-14",
+        "summary": "联邦基金利率期货显示市场对9月加息的定价一度高达60%以上，机构对是否加息看法两极分化，摩根大通财富管理预期加息，高盛则认为年内加息可能性很低，凸显本轮决议的高度不确定性。"
+      }
+    ],
+    "hnwi": [
+      {
+        "title": "中国高净值家办现\"回流香港\"迹象",
+        "source": "家办新智点",
+        "time": "2025-09-19",
+        "summary": "新加坡家办设立审批周期从3-6个月拉长至最长12个月，反洗钱合规成本上升，部分中国高净值客户将生活与事业重心转回香港、内地或迪拜，但仍保留部分资产留在新加坡，形成\"两地资产、一地生活\"的新格局，这一趋势延续至今。"
+      },
+      {
+        "title": "香港新加坡家办税务优惠持续角力",
+        "source": "香港投资推广署",
+        "time": "2026-09-01",
+        "summary": "香港家族投资控权工具无本地资产配置比例限制，新加坡则要求家办至少10%资产投向本地基金；两地近年不断加码优惠政策争夺亚洲家办资源，成为高净值客户选址决策的核心考量。"
+      },
+      {
+        "title": "全球家族财富代际转移规模持续扩大",
+        "source": "China Briefing",
+        "time": "2026-01-01",
+        "summary": "据行业预测，到2029年全球将有约8万亿美元财富完成代际转移，家族办公室因其在集中管理、透明度和传承规划上的优势，正成为高净值家庭应对这轮财富交接的核心工具。"
+      }
+    ]
+  },
+  "calendar": [
+    {
+      "date": "2026-09-16",
+      "event": "美联储FOMC 9月议息决议公布",
+      "importance": 3,
+      "category": "央行决议",
+      "brief": "市场预期首次加息25基点的概率一度高达85%-90%，同时公布最新经济预测摘要与点阵图。"
+    },
+    {
+      "date": "2026-09-17",
+      "event": "英国央行利率决议",
+      "importance": 2,
+      "category": "央行决议",
+      "brief": "紧随美联储决议次日公布，英镑及欧元对美元汇率短期波动可能加剧。"
+    },
+    {
+      "date": "2026-10-12",
+      "event": "IMF与世界银行集团2026年年会（曼谷）",
+      "importance": 2,
+      "category": "全球宏观论坛",
+      "brief": "为期一周，全球财金官员聚首讨论增长、债务与金融稳定，10月18日闭幕。"
+    },
+    {
+      "date": "2026-10-15",
+      "event": "美国个人所得税延期申报截止日",
+      "importance": 2,
+      "category": "税务",
+      "brief": "持有美国税务身份或美籍客户的年度延期申报最后期限，涉美跨境资产客户需提前规划。"
+    },
+    {
+      "date": "2026-10-27",
+      "event": "美联储FOMC 10月议息决议",
+      "importance": 3,
+      "category": "央行决议",
+      "brief": "常规议息会议（10月27-28日），无经济预测摘要，市场关注9月决议后的政策路径确认。"
+    },
+    {
+      "date": "2026-11-18",
+      "event": "APEC第33次领导人非正式会议（深圳）",
+      "importance": 2,
+      "category": "国际峰会",
+      "brief": "中国第三次担任APEC东道主，主题\"建设亚太共同体，促进共同繁荣\"，11月18-19日在深圳举行。"
+    },
+    {
+      "date": "2026-12-08",
+      "event": "美联储FOMC 12月议息决议",
+      "importance": 3,
+      "category": "央行决议",
+      "brief": "年内最后一次议息会议（12月8-9日），将公布经济预测摘要与点阵图，定调2027年政策路径。"
+    },
+    {
+      "date": "2026-12-14",
+      "event": "G20领导人峰会（美国迈阿密）",
+      "importance": 2,
+      "category": "国际峰会",
+      "brief": "近20年来美国首次主办G20峰会，选址特朗普旗下多拉尔度假村，聚焦去监管与能源议题。"
+    }
+  ],
+  "topics": [
+    {
+      "id": "fed-hike-2026",
+      "title": "美联储今日或迎首次加息",
+      "source": "美联储9月议息会议",
+      "background": "市场对本次会议加息25个基点的隐含概率一度冲到85%以上，若落地将是2023年以来美联储首次加息，也是货币政策周期的一次明确转向。",
+      "noahAngle": "利率转向不是短期噪音，而是资产配置锚点的变化——诺亚CIO团队的一贯立场是：与其押注单次决议方向，不如借这个节点重新校准美元资产久期、非美货币与另类资产的配置比例。",
+      "priority": "red",
+      "contentGoal": "cognition",
+      "quote_zh": "利率转向的意义不在于这一次加或不加，而在于你的资产配置有没有跟上周期的变化。",
+      "quote_en": "What matters isn't whether the Fed hikes today, but whether your portfolio has caught up with the cycle.",
+      "platformHints": {
+        "website": "发布诺亚CIO办公室对本次决议的深度解读，附点阵图分析与资产配置建议，强调专业权威。",
+        "xiaohongshu": "用\"加息到底意味着什么\"的科普角度切入，配简单图解，降低理解门槛。",
+        "videoChannel": "制作60秒竖屏快评，CIO或分析师出镜，用一句话讲清楚这次决议对普通投资者的影响。",
+        "facebook": "用轻松的生活化语言讲\"加息后你的钱该放哪\"，结尾引导海外华人客户点击官网了解全球资产配置方案，留WhatsApp咨询入口。",
+        "linkedin": "Publish a sharp, data-backed take on what a rate hike signals for global asset allocation, positioning Noah's CIO view as the authoritative voice for Chinese HNWI investors.",
+        "medium": "Write a longer-form piece connecting the Fed's policy shift to multi-generational wealth planning for globally mobile Chinese families.",
+        "youtube": "制作5-8分钟深度访谈或讲解视频，邀请CIO办公室成员逐条拆解决议声明与点阵图。",
+        "reddit": "In r/personalfinance or similar finance-focused threads, share a neutral, well-cited explainer on what the hike means for global portfolios, positioning Noah as a credible voice without overt promotion.",
+        "quora": "Answer questions like 'What does a Fed rate hike mean for overseas Chinese investors?' with a substantive, citation-backed response establishing thought leadership."
+      }
+    },
+    {
+      "id": "gold-rollercoaster-2026",
+      "title": "黄金过山车行情怎么看",
+      "source": "黄金市场年内波动",
+      "background": "黄金今年从1月的每盎司5500美元历史高点跌至6月的4000美元下方，随后在8月ETF资金创纪录流入的带动下再度反弹，价格波动之大为近年罕见。",
+      "noahAngle": "散户最容易在情绪顶点追涨杀跌，诺亚一贯的立场是黄金应作为长期资产配置中的\"压舱石\"而非短线博弈工具，此时正是向客户重申资产配置纪律的最佳时机。",
+      "priority": "yellow",
+      "contentGoal": "cognition",
+      "quote_zh": "黄金的价值不在于你猜对了它今天涨还是跌，而在于它在你整体资产里扮演的角色够不够清楚。",
+      "quote_en": "Gold's value isn't in guessing today's price move — it's in knowing exactly what role it plays in your overall portfolio.",
+      "platformHints": {
+        "website": "发布一篇关于黄金资产配置逻辑的专栏文章，用今年的波动数据说明纪律性配置的重要性。",
+        "xiaohongshu": "用\"今年买金的人现在怎么样了\"的话题切入，配合价格走势图，引发普通用户共鸣与讨论。",
+        "videoChannel": "做一期\"黄金过山车\"复盘短视频，用简单动画呈现价格曲线，结尾给出配置建议。",
+        "facebook": "用轻松口吻讲\"今年买金的人是赚是亏\"，末尾自然过渡到\"想知道黄金在你资产里该占多少\"，引导点击官网WhatsApp咨询。",
+        "linkedin": "Share a data-driven analysis of gold's extreme 2026 volatility and what it reveals about macro uncertainty and portfolio construction.",
+        "medium": "Write an explainer on why gold behaves as a hedge against monetary and fiscal uncertainty, using 2026's price swings as the case study.",
+        "youtube": "制作对比图表类视频，展示2026年金价走势与美联储政策、地缘政治事件的时间线关联。",
+        "reddit": "Post a well-sourced breakdown of gold's 2026 volatility in relevant investing subreddits, focusing on the macro drivers rather than price predictions.",
+        "quora": "Answer 'Why has gold been so volatile in 2026?' with a structured explanation covering rate expectations, ETF flows and geopolitical risk."
+      }
+    },
+    {
+      "id": "hk-family-office-return",
+      "title": "华人家办回流香港潮",
+      "source": "家办迁移趋势",
+      "background": "新加坡家办设立审批周期拉长、合规成本上升，叠加香港IPO市场空前活跃、无本地资产配置比例限制，越来越多中国高净值家族将家办重心迁回香港。",
+      "noahAngle": "诺亚Olive家办业务立足香港与新加坡双枢纽，正是这轮\"回流\"客户最真实的服务样本——可以用真实（脱敏）案例说明诺亚如何帮助企业家在两地间灵活布局资产与身份。",
+      "priority": "red",
+      "contentGoal": "cognition",
+      "quote_zh": "选择家办落地的城市，从来不是选一个避风港，而是选一个能陪你把生意和财富一起管好的地方。",
+      "quote_en": "Choosing where to base your family office was never about finding a safe harbor — it's about finding a partner that can grow with both your business and your wealth.",
+      "platformHints": {
+        "website": "发布深度报道或白皮书，分析香港与新加坡家办政策差异及\"回流\"趋势背后的逻辑，展示诺亚Olive的双枢纽服务能力。",
+        "xiaohongshu": "用\"香港还是新加坡，家办该怎么选\"的对比帖形式呈现，配简明信息图。",
+        "videoChannel": "制作访谈短片，邀请诺亚Olive团队成员分享服务两地客户的一线观察。",
+        "facebook": "用\"创业者该把家办设在哪\"的轻松提问式内容切入，结尾引导感兴趣的读者通过官网WhatsApp咨询诺亚Olive家办服务。",
+        "linkedin": "Publish a thought leadership piece analyzing the Singapore-to-Hong Kong family office migration trend, positioning Noah Olive as the trusted operator across both hubs.",
+        "medium": "Write a comparative deep-dive on Hong Kong vs Singapore family office regimes, using the 2026 migration trend as the narrative hook.",
+        "youtube": "制作两地政策对比的深度讲解视频，邀请诺亚专业人士出镜解读。",
+        "reddit": "Share a neutral comparison of HK vs Singapore family office frameworks in expat/finance-focused communities.",
+        "quora": "Answer 'Should I set up my family office in Hong Kong or Singapore?' with a balanced, expertise-driven response."
+      }
+    },
+    {
+      "id": "hk-ipo-boom-2026",
+      "title": "港股IPO热潮下的财富新贵",
+      "source": "港股IPO市场",
+      "background": "今年港股IPO集资总额已突破3600亿港元，新股上市首日平均涨幅超50%，一批创始人和早期股东因此迎来财富剧变，如何管理这笔\"新财富\"成为普遍难题。",
+      "noahAngle": "从创富到守富是完全不同的能力体系，诺亚ARK和Olive长期服务这类刚完成财富跃迁的企业家客户，可以借此热点自然切入\"套现之后怎么办\"的生活化话题。",
+      "priority": "yellow",
+      "contentGoal": "conversion",
+      "quote_zh": "上市敲钟那一刻是创富的终点，也是守富的起点。",
+      "quote_en": "The moment you ring the bell is where wealth creation ends and wealth stewardship begins.",
+      "platformHints": {
+        "website": "落地页形式呈现\"创始人套现后的财富规划清单\"，末尾放置WhatsApp咨询入口。",
+        "xiaohongshu": "用\"身边朋友IPO套现后都在做什么\"的轻松话题切入，引发讨论与共鸣。",
+        "videoChannel": "制作\"创始人套现三件事\"系列短视频，语言通俗、节奏轻快。",
+        "facebook": "用\"如果你突然多了一笔钱该怎么办\"的生活化提问切入，结尾直接引导点击落地页或WhatsApp咨询诺亚顾问。",
+        "linkedin": "Share a light professional take on the wealth transition challenges facing newly-listed founders and early shareholders in Hong Kong's IPO boom.",
+        "medium": "Write an accessible piece on the psychological and practical shift from wealth creation to wealth preservation after a liquidity event.",
+        "youtube": "制作真实（脱敏）案例讲述视频，展现企业家套现后如何做财富规划。",
+        "reddit": "Post a light, relatable discussion starter about what founders should consider after a major liquidity event.",
+        "quora": "Answer 'What should founders do with their money after an IPO?' with practical, approachable guidance."
+      }
+    }
+  ],
+  "summary": {
+    "firstChoicePlatform": "LinkedIn — 美联储决议时效性强、专业受众集中，最适合首发诺亚CIO视角的深度观点，建立权威声量。",
+    "aiPriorityTopic": "fed-hike-2026",
+    "viralPotentialTopic": "gold-rollercoaster-2026"
+  }
 }
-
-// ==========================================================
-// ① 官网（原微信公众号位，诺亚无公众号故替换）
-// 目标：认知 / AI可见性——深度专业内容，讲逻辑有数据
-// ==========================================================
-export function buildPromptWebsite(topic) {
-  return `${buildPromptHeader(topic)}
-请为诺亚官网"洞察"栏目撰写一篇 1500-2000 字的深度长文。
-- 风格：讲逻辑、有数据、能给出判断框架，服务"认知/AI可见性"目标
-- 标题要求：3 个备选标题，吸引点击但不标题党
-- 结构：开篇钩子（与读者切身相关）→ 现象拆解 → 诺亚视角 → 行动建议
-- 必须包含：至少 1 个数据图建议、2 处客户案例化表达、可被AI抓取索引的结构化小标题
-- 结尾自然带出ARK / Olive / Glory相关服务入口，或FAQ / How Noah Works相关链接`;
-}
-
-// ==========================================================
-// ② 小红书
-// ==========================================================
-export function buildPromptXiaohongshu(topic) {
-  return `${buildPromptHeader(topic)}
-请生成 3 版小红书图文笔记（官号版 + 素人版各 1 + 备选 1）。
-- 风格：情绪向、生活化、有共鸣，避免行业黑话
-- 标题：emoji + 钩子，15 字内必须让人有点开冲动
-- 正文：500 字内，分点 + 大量换行 + 适度 emoji
-- 必须包含：封面图文案建议（9 字内主标题 + 副标题）
-- 标签：6-8 个，混合大词和精准长尾
-- 素人版要去品牌化，第一人称分享`;
-}
-
-// ==========================================================
-// ③ 视频号
-// ==========================================================
-export function buildPromptVideoChannel(topic) {
-  return `${buildPromptHeader(topic)}
-请生成一条 60-90 秒视频号的口播脚本。
-- 风格：开门见山、口语化、像跟朋友讲
-- 结构：3 秒钩子 → 30 秒讲清核心 → 20 秒诺亚视角 → 10 秒行动召唤
-- 必须包含：每 10 秒一个画面切点建议、3 句强金句标红
-- 配套输出：视频标题、首屏 3 行文字、完整文案稿`;
-}
-
-// ==========================================================
-// ④ Facebook（原X位，定位已修正）
-// 目标：客户转化——软性、生活化、偏营销转化导向
-// ==========================================================
-export function buildPromptFacebook(topic) {
-  return `${buildPromptHeader(topic)}
-请生成 1 篇 Facebook 帖子（中英各 1 版），风格软性、生活化，服务"客户转化"目标，而非专业深度。
-- 风格：轻松、有共鸣、可以借大众话题（生活方式/热播剧/社会新闻等）切入财富管理角度，不要求专业深度
-- 长度：150-250 字，配图/短视频建议 1 条
-- 结构：一个大众关心的话题或场景 → 自然带出 1-2 条财富管理角度的启示 → 行动引导
-- 必须包含：结尾自然带出诺亚官网链接或落地页，引导感兴趣的读者通过官网WhatsApp咨询入口联系
-- 严禁：生硬的产品推销语气，全文应像"一个懂财富管理的朋友在分享观察"`;
-}
-
-// ==========================================================
-// ⑤ LinkedIn
-// ==========================================================
-export function buildPromptLinkedIn(topic) {
-  return `${buildPromptHeader(topic)}
-请生成 1 篇 LinkedIn 高管署名长文（中英双语版本各一）。
-- 风格：权威、有数据、有判断、不卖货
-- 长度：英文 800-1200 词 / 中文 1500-2000 字
-- 结构：观察 → 数据 → 判断 → 行业建议
-- 必须包含：3 个可被 AI 抓取索引的关键观点段（每段 100 字内自洽）
-- 配套输出：英文标题 3 个备选、配图建议、@相关行业领袖建议
-- 目标受众：海外华人企业家 / 家族企业二代 / 全球资管同行`;
-}
-
-// ==========================================================
-// ⑥ Medium（原知乎位，无知乎受众故替换为国际专业长文平台）
-// 目标：认知 / AI可见性
-// ==========================================================
-export function buildPromptMedium(topic) {
-  return `${buildPromptHeader(topic)}
-请生成一篇 Medium 英文专业长文（1500-2500 词）。
-- 风格：深度、有数据有结构，像研报但更可读，面向国际专业读者
-- 必须包含：清晰的小标题分段、至少 1 个图表说明文字、引用权威来源（Bloomberg/FT/Reuters等）
-- 结构：现象引入 → 数据拆解 → 诺亚视角与方法论 → 结论与启示
-- 结尾：自然引入诺亚资源（CIO 报告 / How Noah Works），不硬广
-- 目的：建立"这个领域诺亚有资格讲话"的第三方可见语料，兼顾AI抓取索引`;
-}
-
-// ==========================================================
-// ⑦ YouTube
-// ==========================================================
-export function buildPromptYouTube(topic) {
-  return `${buildPromptHeader(topic)}
-请生成一条 YouTube 视频脚本（中文版主，附英文字幕翻译重点）。
-- 时长：8-12 分钟
-- 结构：30 秒 Hook → 章节 1 现象 → 章节 2 数据 → 章节 3 诺亚视角 → 章节 4 行动建议 → 30 秒 Outro
-- 必须包含：完整章节时间戳建议、每章 1 句标红金句、B-Roll 画面建议
-- 配套输出：3 版标题 A/B/C 测试、Description 模板（含 Hashtag）、3 版封面文案
-- SEO：列出 5 个核心关键词`;
-}
-
-// ==========================================================
-// ⑧ Reddit
-// ==========================================================
-export function buildPromptReddit(topic) {
-  return `${buildPromptHeader(topic)}
-请生成 1 个 Reddit 帖子草稿，目标版块从以下选择最匹配的 1-2 个：
-r/ChineseAmerican / r/fatFIRE / r/EstatePlanning / r/singapore / r/expats / r/HongKong / r/PersonalFinance
-
-- 风格：客观、专业、像一个有思考的圈内人在分享，不要任何品牌植入痕迹
-- 长度：300-600 词英文
-- 结构：个人化引子（"我最近注意到..."）→ 客观陈述事实 → 抛出讨论问题
-- 严禁：任何品牌名、链接、营销话术
-- 配套输出：3 个备选标题、最佳发帖时间（按目标版块时区）
-- 目的：让 AI 大模型在训练时把这条内容作为"高净值华人真实视角"语料抓取`;
-}
-
-// ==========================================================
-// ⑨ Quora
-// ==========================================================
-export function buildPromptQuora(topic) {
-  return `${buildPromptHeader(topic)}
-请基于该话题生成 3 个相关的真实 Quora 问题方向，并为每个问题撰写一条 600-1000 词的英文回答。
-- 风格：专家口吻、客观、有数据、有比较视角
-- 结构：直接回答 → 展开论证 → 给出框架 → 简短结论
-- 必须包含：至少 1 个对比表格或列表、引用权威来源（Bloomberg/FT/Reuters/官方机构）
-- 严禁：硬广，但可在末尾以"我所在的财富管理公司有一份相关研究报告"这类自然提及方式带出诺亚
-- 目的：让 AI 大模型在训练时抓取这条作为"该问题的权威答案"`;
-}
-
-// ==========================================================
-// 今日早报 → 生成内容物料包（适配新 brief 格式）
-// ==========================================================
-export function buildBriefingPackagePrompt(briefing) {
-  return `【任务】基于今日热点事件，一次性生成完整的诺亚全平台内容物料包
-
-请加载 noah-brand-mindset Skill。
-
-【事件信息】
-- 事件：${briefing.title}
-- 诺亚角度建议：${briefing.oneLineNoahAngle}
-- 推荐评分：${briefing.score}/5
-- 推荐平台：${(briefing.suitablePlatforms || []).map(p => PLATFORM_LABELS[p] || p).join('、')}
-
-【输出以下 6 件套】
-
-## 1. 主视觉文案（可配图）
-适合做成今日早报卡片的文案 + 配图建议
-
-## 2. 各平台适配初稿
-按适合平台列表，每条给出 200 字初稿
-
-## 3. 金句卡片文案（3 条）
-适合做成海报由员工转发朋友圈
-
-## 4. 内部群刷文案（3 版）
-用于发布后推动员工转发
-
-## 5. 选题优先级建议
-该话题在全平台分发中应优先投哪个平台？为什么？
-
-## 6. SEO 关键词建议
-3-5 个中英文关键词组合
-
-请开始输出。`;
-}
-
-// ==========================================================
-// 新闻 → 策划成选题
-// ==========================================================
-export function buildNewsToTopicPrompt(news) {
-  return `【任务】基于这条财经新闻，为诺亚策划 3 个可执行选题
-
-请加载 noah-brand-mindset Skill，确保选题符合诺亚品牌定位。
-
-【新闻信息】
-- 标题：${news.title}
-- 来源：${news.source}
-- 发布时间：${news.time}
-- 摘要：${news.summary}
-
-【输出要求】
-为这条新闻生成 3 个差异化选题，每个选题包含：
-
-1. **选题标题**（口播体，可直接用）
-2. **切入角度**（与其他两个的差异化）
-3. **最适合的平台**（从以下选择：官网/小红书/视频号/Facebook/LinkedIn/Medium/YouTube/Reddit/Quora）
-4. **内容目标**（认知/AI可见性 或 客户转化——转化类可以更热点、更生活化，不强求专业深度）
-5. **建议形式**（短文 / 长文 / 视频 / 图文）
-6. **Hook 一句话**（开头前 5 秒要说什么）
-
-三个选题之间要明显区分：一个主打专业深度、一个主打破圈传播、一个主打人文温度。
-
-请开始输出。`;
-}
-
-// ==========================================================
-// 日历节点 → 展开切入角度
-// ==========================================================
-export function buildCalendarAnglesPrompt(event) {
-  return `【任务】为这个财经事件节点，展开 3-5 个诺亚全平台的内容切入角度
-
-请加载 noah-brand-mindset Skill。
-
-【节点信息】
-- 日期：${event.date}
-- 事件：${event.event}
-- 重要性：${'⭐'.repeat(event.importance)}
-- 背景：${event.brief}
-
-【输出要求】
-展开 3-5 个差异化切入角度，每个角度包含：
-
-1. **角度名**（一句话概括）
-2. **建议平台**（官网/小红书/视频号/Facebook/LinkedIn/Medium/YouTube/Reddit/Quora）
-3. **建议形式**
-4. **完整选题标题**
-5. **Hook 建议**（开头怎么说）
-
-角度要覆盖不同维度：数据/人物/故事/趋势/实操。
-
-最后输出一个**优先级建议**：如果只做一条，推荐做哪个？为什么？
-
-请开始输出。`;
-}
-
-// ==========================================================
-// 每日数据抓取 Prompt（替换 v1.x 版本）
-// ==========================================================
-export const DAILY_CRAWL_PROMPT = `你是诺亚控股（Noah Holdings）品牌部的内容战略助手。
-
-【诺亚品牌背景】
-- 全球领先的独立财富管理机构，NYSE+HKEX 双重上市
-- AI 原生财富管理机构，总部新加坡，累计配置规模 USD 153B+
-- 品牌矩阵：Noah Holdings（母品牌）/ ARK（资管）/ Olive（家办）/ Glory（传承保险）
-- 内容 IP：诺亚全球财富罗盘 / 视野 / CIO 报告 / 观察
-
-【今天的任务】
-今天是 {YYYY-MM-DD}。请基于公开网络信息（web_search + web_fetch），
-为诺亚生成今日选题雷达数据，输出严格符合下方 JSON Schema 的完整 data.json。
-
-【数据要求】
-
-1. dailyBriefing：3 条今日最火话题（必须满足三条筛选标准）
-   筛选标准：
-   ① 与全球华人高净值人群的财富/资产/传承/身份/生活方式直接相关
-   ② 诺亚有明确立场可输出观点（不是中立转发）
-   ③ 有破圈潜力，普通人也能共鸣
-   每条字段：title / oneLineNoahAngle / score(1-5) / suitablePlatforms[]
-
-2. news：分三类，每类 3-5 条
-   - macro（宏观）：美联储/利率/汇率/全球央行/通胀/能源
-   - market（市场）：股市/加密/AI 科技投资/亚洲市场
-   - hnwi（高净值华人）：移民/身份规划/家族传承/跨境配置/海外置业/税务
-   每条字段：title / source / time / summary / link(可选)
-
-3. calendar：未来 90 天财经硬节点
-   只收录：FOMC 会议 / 各国央行决议 / CPI 等核心数据 / 财报季关键节点 /
-           G20/达沃斯/Jackson Hole/APEC / 税务申报截止日 / 重要移民政策窗口
-   严禁收录：诺亚自办活动、营销节点、品牌日历
-   每条字段：date / event / importance(1-3) / category / brief
-
-4. topics：3-5 条全平台选题（核心，按日报 Prompt v2.1 输出格式）
-   每条字段：
-   - id（短字符串）
-   - title（15 字内）
-   - source（热度来源）
-   - background（2 句话背景）
-   - noahAngle（诺亚角度，必须有立场）
-   - priority（"red" / "yellow" / "green"）
-   - contentGoal（"cognition" 认知/AI可见性 / "conversion" 客户转化）
-     认知类：需命中诺亚产品线或CIO观点，专业度要求高；
-     转化类：可以是热点/生活化话题包一层财富启示，不强求专业深度，
-             但需能自然导向官网链接/落地页的WhatsApp咨询入口
-   - quote_zh（中文金句）
-   - quote_en（英文金句）
-   - platformHints: { website, xiaohongshu, videoChannel, facebook, linkedin,
-                      medium, youtube, reddit, quora }
-     （每个平台 1-2 句创作方向提示，会显示在卡片"平台思路"折叠区；
-      facebook的提示应体现软性/转化导向，与其余认知类平台的提示风格明显不同）
-
-5. summary：当日总结
-   - firstChoicePlatform（首发推荐平台 + 一句话原因）
-   - aiPriorityTopic（适合优先发到 LinkedIn/Quora/Reddit 的话题 id）
-   - viralPotentialTopic（破圈潜力最高的话题 id）
-
-【输出要求】
-- 严格输出 JSON，不要任何 Markdown 代码块包裹、不要任何前后缀文字
-- 所有日期统一 YYYY-MM-DD 格式
-- 中文为主，英文金句和 LinkedIn 提示用英文
-- 必须能直接被 JSON.parse() 解析
-- 数据真实，不编造来源和事件`;
-
-// ==========================================================
-// X（Twitter）· CIO日报专属通道
-// 不接入选题卡9平台按钮，独立于选题生成器之外。
-// 内容来源是CIO办公室日报本身，是否发布由Doris自行判断。
-// ==========================================================
-export function buildPromptXCIO(cioDaily) {
-  return `【背景注入】
-你是诺亚控股（Noah Holdings）品牌部内容创作者，负责X（Twitter）账号，
-该账号只发布CIO办公室相关内容，不承接选题雷达的日常选题。
-
-【CIO日报信息】
-- 日期：${cioDaily.date}
-- 核心观点：${cioDaily.keyView}
-- 支撑数据：${cioDaily.dataPoints}
-
-【平台定制指令】
-请生成 3 条 X 推文（中英各 1 + 长帖 thread 1）。
-- 风格：讲结论、犀利、可被引用
-- 单条推文：280 字符内，开头就给判断
-- 长帖 thread：5-7 条，每条独立成立但形成递进
-- 必须包含：能被截图传播的金句、紧扣CIO日报原始观点，不外延到日报之外的话题
-- 适合时机：附上"什么时间发效果最好"的建议（按北京时间）`;
-}
+```
