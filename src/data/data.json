@@ -6,21 +6,39 @@
       "title": "中东战火重燃叠加美联储本周不降息，利率高位重排家庭资产",
       "oneLineNoahAngle": "诺亚观点：当降息预期被战争和通胀一起按住，现金和久期都要重新算账，别用去年的剧本配今年的组合。",
       "score": 5,
-      "suitablePlatforms": ["youtube", "videoChannel", "wechat", "linkedin", "x"]
+      "suitablePlatforms": [
+        "youtube",
+        "videoChannel",
+        "wechat",
+        "linkedin",
+        "x"
+      ]
     },
     {
       "id": "b2",
       "title": "AI七巨头占标普半壁江山，你的指数基金正押注同一个故事",
       "oneLineNoahAngle": "诺亚观点：被动投资不等于分散，当三分之一市值压在七只票上，所谓稳健其实是一场集中豪赌——这正是另类与全球配置的价值所在。",
       "score": 4,
-      "suitablePlatforms": ["xiaohongshu", "videoChannel", "zhihu", "youtube", "x"]
+      "suitablePlatforms": [
+        "xiaohongshu",
+        "videoChannel",
+        "zhihu",
+        "youtube",
+        "x"
+      ]
     },
     {
       "id": "b3",
       "title": "黄金长牛再延续：央行在买，普通家庭该不该跟",
       "oneLineNoahAngle": "诺亚观点：黄金已经从避险工具升级为主权级的去美元化配置，对华人家庭而言，它的角色是压舱石，不是投机筹码。",
       "score": 4,
-      "suitablePlatforms": ["xiaohongshu", "videoChannel", "wechat", "youtube", "reddit"]
+      "suitablePlatforms": [
+        "xiaohongshu",
+        "videoChannel",
+        "wechat",
+        "youtube",
+        "reddit"
+      ]
     }
   ],
   "news": {
@@ -257,16 +275,17 @@
       "quote_zh": "私募信贷给的不是确定性，而是被定价的不确定性。",
       "quote_en": "Private credit never sold certainty. It sold priced uncertainty.",
       "platformHints": {
-        "wechat": "长图文深度解读：用一张图讲清headline违约率与真实违约率的差距，落点到管理人筛选的重要性，避免渲染恐慌。",
+        "website": "长图文深度解读：用一张图讲清headline违约率与真实违约率的差距，落点到管理人筛选的重要性，避免渲染恐慌。",
         "xiaohongshu": "知识卡片体：私募信贷三个你以为的稳，其实没那么稳，配简洁信息图，结尾给理性配置心法。",
         "videoChannel": "竖屏口播1分钟：开场抛出真实违约率约5%这个反差数据，中段讲清原因，结尾落诺亚ARK的专业判断。",
-        "x": "Thread: Private credit faces its first full credit cycle. Headline default <2%, but true rate near 5%. Manager selection is the real moat. A short breakdown.",
+        "facebook": "Thread: Private credit faces its first full credit cycle. Headline default <2%, but true rate near 5%. Manager selection is the real moat. A short breakdown.",
         "linkedin": "Professional long-form: Why the first full credit cycle is a stress test for manager selection, not the asset class itself. Frame around due diligence and underlying-asset transparency.",
-        "zhihu": "回答体：如何看待2026年私募信贷违约率的争议？拆解口径差异（headline vs 真实），给出机构分歧光谱与理性配置框架。",
+        "medium": "回答体：如何看待2026年私募信贷违约率的争议？拆解口径差异（headline vs 真实），给出机构分歧光谱与理性配置框架。",
         "youtube": "8-10分钟CIO观察：完整信用周期下的私募信贷，配图表对比2025末违约案例，强调诺亚ARK的穿透式尽调方法论。",
         "reddit": "r/investing discussion-style: A grounded look at private credit's first full cycle test, sharing the 4.5% vs 15% default forecast spread without hype, inviting balanced debate.",
         "quora": "Answer: Is private credit in a bubble in 2026? Lay out the credible range of views, explain why dispersion and manager quality matter more than the headline label."
-      }
+      },
+      "contentGoal": "cognition"
     },
     {
       "id": "t2",
@@ -278,16 +297,17 @@
       "quote_zh": "分散的反义词不是集中，而是集中却不自知。",
       "quote_en": "The opposite of diversified isn't concentrated. It's concentrated without knowing it.",
       "platformHints": {
-        "wechat": "公众号深度：用持仓穿透图展示宽基指数里七巨头的真实权重，落点到全球与另类配置的必要性。",
+        "website": "公众号深度：用持仓穿透图展示宽基指数里七巨头的真实权重，落点到全球与另类配置的必要性。",
         "xiaohongshu": "图文体：你的基金是不是偷偷重仓了AI？三步自查持仓集中度，风格务实不贩卖焦虑。",
         "videoChannel": "竖屏口播：开场一句你以为买的是分散其实买的是赌注，配S&P集中度数据动画。",
-        "x": "Thread: Mag 7 = over a third of the S&P 500. Passive isn't the same as diversified. How to check your real concentration exposure.",
+        "facebook": "Thread: Mag 7 = over a third of the S&P 500. Passive isn't the same as diversified. How to check your real concentration exposure.",
         "linkedin": "Long-form: Index concentration risk in 2026 and why global plus alternatives allocation is a discipline, not a market-timing call.",
-        "zhihu": "回答体：买宽基指数基金还算分散投资吗？用集中度数据与历史类比（2000年）作答，给出再平衡思路。",
+        "medium": "回答体：买宽基指数基金还算分散投资吗？用集中度数据与历史类比（2000年）作答，给出再平衡思路。",
         "youtube": "10分钟解读：AI集中度风险全景，结合6月5日回调，强调诺亚的全球配置框架，避免给出具体收益预测。",
         "reddit": "r/Bogleheads-friendly: A measured take on index concentration in 2026, data-first, no doom, discussing diversification beyond cap-weighted indices.",
         "quora": "Answer: Is investing in an S&P 500 index fund still diversified in 2026? Explain cap-weighting, Mag 7 dominance, and practical diversification options."
-      }
+      },
+      "contentGoal": "cognition"
     },
     {
       "id": "t3",
@@ -299,16 +319,17 @@
       "quote_zh": "资本东移不是口号，它正在港交所的钟声里兑现。",
       "quote_en": "Capital moving East isn't a slogan. It's ringing the bell at HKEX.",
       "platformHints": {
-        "wechat": "公众号图文：用一季度募资1099亿港元的数据开场，梳理A+H与18C结构，落点诺亚ARK一级市场布局。",
+        "website": "公众号图文：用一季度募资1099亿港元的数据开场，梳理A+H与18C结构，落点诺亚ARK一级市场布局。",
         "xiaohongshu": "图文体：港股打新又火了？先看懂这波AI上市潮的逻辑再决定，强调估值纪律不追高。",
         "videoChannel": "竖屏口播：开场港交所五年最猛一季，讲清AI上市潮，结尾理性提示一级市场的时机与退出。",
-        "x": "Thread: HK IPOs raised ~HK$110B in Q1 2026, up 489% YoY, topping global rankings. 85% of China AI IPOs chose Hong Kong. What's driving the East-ward shift.",
+        "facebook": "Thread: HK IPOs raised ~HK$110B in Q1 2026, up 489% YoY, topping global rankings. 85% of China AI IPOs chose Hong Kong. What's driving the East-ward shift.",
         "linkedin": "Long-form: Hong Kong as the pricing hub for China's AI and new-economy listings, and what disciplined primary-market participation looks like for global Chinese families.",
-        "zhihu": "回答体：2026年香港IPO为什么这么火？拆解A+H、18C与AI上市潮，并提示一级市场参与的专业门槛。",
+        "medium": "回答体：2026年香港IPO为什么这么火？拆解A+H、18C与AI上市潮，并提示一级市场参与的专业门槛。",
         "youtube": "8分钟解读：香港IPO复苏全景＋AI上市潮，配HKEX数据图，落点诺亚ARK一级市场方法论。",
         "reddit": "r/investing: Hong Kong's 2026 IPO surge and the concentration of China AI listings there, data-driven, discussing risks of chasing first-day pops.",
         "quora": "Answer: Why are Chinese AI companies listing in Hong Kong in 2026? Cover A+H, Chapter 18C, and the safe-haven plus Asian-growth narrative."
-      }
+      },
+      "contentGoal": "cognition"
     },
     {
       "id": "t4",
@@ -320,16 +341,17 @@
       "quote_zh": "家办不是一张税务架构图，而是一个家族把意志写进下一代的方式。",
       "quote_en": "A family office isn't a tax chart. It's how a family writes its intent into the next generation.",
       "platformHints": {
-        "wechat": "公众号深度：用3384家这个数字切入，讲清香港反超新加坡背后的制度差异（FIHV vs 13O/13U），落点家办的治理本质。",
+        "website": "公众号深度：用3384家这个数字切入，讲清香港反超新加坡背后的制度差异（FIHV vs 13O/13U），落点家办的治理本质。",
         "xiaohongshu": "图文体：为什么有钱人都在香港开家办？三分钟看懂家办2.0，风格知识科普不炫富。",
         "videoChannel": "竖屏口播：开场财富正在回家，讲香港家办反超新加坡，结尾点出家办是传承不是节税。",
-        "x": "Thread: Hong Kong single-family offices hit 3,384, now ahead of Singapore. Family Office 2.0 (2026-28) and the East-ward booking shift. Why it matters.",
+        "facebook": "Thread: Hong Kong single-family offices hit 3,384, now ahead of Singapore. Family Office 2.0 (2026-28) and the East-ward booking shift. Why it matters.",
         "linkedin": "Long-form: The structural reshoring of global Chinese wealth, HK vs SG regimes (FIHV vs 13O/13U), and why governance outweighs tax in family-office design.",
-        "zhihu": "回答体：香港和新加坡家族办公室怎么选？对比制度门槛与生态，强调家办的跨代治理与传承功能。",
+        "medium": "回答体：香港和新加坡家族办公室怎么选？对比制度门槛与生态，强调家办的跨代治理与传承功能。",
         "youtube": "10分钟诺亚对话风格：财富东移与家办2.0，结合BCG报告香港反超瑞士，落点Olive四大中心布局。",
         "reddit": "r/fatFIRE-style: Hong Kong overtaking Singapore in single-family offices, comparing FIHV vs 13O/13U thresholds, grounded discussion of setup tradeoffs.",
         "quora": "Answer: Should a wealthy Chinese family set up a family office in Hong Kong or Singapore in 2026? Compare regimes, costs, and governance considerations."
-      }
+      },
+      "contentGoal": "cognition"
     },
     {
       "id": "t5",
@@ -341,16 +363,17 @@
       "quote_zh": "身份规划不是对新闻的应激反应，而是对时间的提前布局。",
       "quote_en": "Residency planning isn't a reaction to headlines. It's a head start on time.",
       "platformHints": {
-        "wechat": "公众号深度：客观呈现Henley与Tax Justice双方数据，再落点身份规划应基于家族结构而非新闻情绪，避免渲染恐慌。",
+        "website": "公众号深度：客观呈现Henley与Tax Justice双方数据，再落点身份规划应基于家族结构而非新闻情绪，避免渲染恐慌。",
         "xiaohongshu": "图文体：英国富人真的在跑吗？两方数据都给你看，结尾讲身份规划的理性原则。",
         "videoChannel": "竖屏口播：开场抛出1.65万这个争议数字，平衡呈现双方观点，结尾落诺亚Glory长期主义。",
-        "x": "Thread: Did 16,500 millionaires really leave the UK in 2025? Henley says yes, Tax Justice Network disputes it. A balanced look at WEXIT as trend vs narrative.",
+        "facebook": "Thread: Did 16,500 millionaires really leave the UK in 2025? Henley says yes, Tax Justice Network disputes it. A balanced look at WEXIT as trend vs narrative.",
         "linkedin": "Long-form: WEXIT, trend or narrative? Present both the Henley estimate and the Tax Justice critique, then argue residency planning should be structural, not reactive.",
-        "zhihu": "回答体：英国非全球居籍制度取消后富人真在大量离开吗？呈现争议数据，给出身份规划的理性决策框架。",
+        "medium": "回答体：英国非全球居籍制度取消后富人真在大量离开吗？呈现争议数据，给出身份规划的理性决策框架。",
         "youtube": "10分钟解读：用平衡视角拆解英国出走潮争议，落点诺亚Glory身份与传承规划的长期主义方法论。",
         "reddit": "r/expats-style: Is the UK millionaire exodus real or overstated? Sharing both Henley and Tax Justice Network data for a balanced, non-sensational discussion.",
         "quora": "Answer: Are wealthy people really leaving the UK after non-dom changes? Present the contested data honestly and explain a rational approach to residency planning."
-      }
+      },
+      "contentGoal": "cognition"
     }
   ],
   "summary": {
