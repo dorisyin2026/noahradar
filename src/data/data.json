@@ -9,9 +9,8 @@
       "suitablePlatforms": [
         "youtube",
         "videoChannel",
-        "wechat",
-        "linkedin",
-        "x"
+        "website",
+        "linkedin"
       ]
     },
     {
@@ -22,9 +21,8 @@
       "suitablePlatforms": [
         "xiaohongshu",
         "videoChannel",
-        "zhihu",
-        "youtube",
-        "x"
+        "medium",
+        "youtube"
       ]
     },
     {
@@ -35,7 +33,7 @@
       "suitablePlatforms": [
         "xiaohongshu",
         "videoChannel",
-        "wechat",
+        "website",
         "youtube",
         "reddit"
       ]
