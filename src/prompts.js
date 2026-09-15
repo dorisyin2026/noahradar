@@ -1,4 +1,3 @@
-```json
 {
   "date": "2026-09-16",
   "dailyBriefing": [
@@ -251,4 +250,3 @@
     "viralPotentialTopic": "gold-rollercoaster-2026"
   }
 }
-```
