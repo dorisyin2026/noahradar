@@ -1,23 +1,34 @@
 {
-  "date": "2026-09-16",
   "dailyBriefing": [
     {
       "title": "美联储今日利率决议，加息山雨欲来",
       "oneLineNoahAngle": "无论加息与否，本次决议标志着降息周期彻底转向，诺亚CIO团队的观点是：全球资产配置的锚点变了，客户需要重新审视美元资产久期与非美货币敞口的平衡。",
       "score": 5,
-      "suitablePlatforms": ["linkedin", "website", "medium"]
+      "suitablePlatforms": [
+        "linkedin",
+        "website",
+        "medium"
+      ]
     },
     {
       "title": "黄金过山车：从5500到4000再反弹",
       "oneLineNoahAngle": "黄金今年经历罕见的暴涨暴跌暴涨，普通投资者最容易在情绪顶点追涨——诺亚一贯把黄金定位为资产配置中的'压舱石'而非博弈筹码，这正是向客户重申长期配置逻辑的时机。",
       "score": 5,
-      "suitablePlatforms": ["xiaohongshu", "facebook", "website"]
+      "suitablePlatforms": [
+        "xiaohongshu",
+        "facebook",
+        "website"
+      ]
     },
     {
       "title": "中国家办从新加坡回流香港",
       "oneLineNoahAngle": "新加坡合规审查趋严、开户周期拉长，叠加香港IPO市场空前活跃，越来越多华人家族办公室把重心迁回香港——这正是诺亚Olive家办业务立足两地枢纽的现实案例。",
       "score": 4,
-      "suitablePlatforms": ["linkedin", "website", "facebook"]
+      "suitablePlatforms": [
+        "linkedin",
+        "website",
+        "facebook"
+      ]
     }
   ],
   "news": {
@@ -248,5 +259,6 @@
     "firstChoicePlatform": "LinkedIn — 美联储决议时效性强、专业受众集中，最适合首发诺亚CIO视角的深度观点，建立权威声量。",
     "aiPriorityTopic": "fed-hike-2026",
     "viralPotentialTopic": "gold-rollercoaster-2026"
-  }
+  },
+  "lastUpdated": "2026-09-16T08:00:00"
 }
